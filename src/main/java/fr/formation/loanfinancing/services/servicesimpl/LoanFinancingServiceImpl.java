@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingDto;
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingViewDto;
+import fr.formation.loanfinancing.jobs.entities.AmortizationTable;
 import fr.formation.loanfinancing.jobs.entities.LoanFinancing;
 import fr.formation.loanfinancing.repositories.LoanFinancingRepository;
 import fr.formation.loanfinancing.services.LoanFinancingService;
@@ -13,22 +14,23 @@ import fr.formation.loanfinancing.services.LoanFinancingService;
 @Service
 public class LoanFinancingServiceImpl implements LoanFinancingService {
 
-    private final LoanFinancingRepository loanFinancingRepo;
+    private final LoanFinancingRepository repo;
 
     protected LoanFinancingServiceImpl(
             LoanFinancingRepository loanFinancingRepo) {
-	this.loanFinancingRepo = loanFinancingRepo;
+	this.repo = loanFinancingRepo;
     }
 
     @Override
-    public void create(LoanFinancingDto dto) {
+    public AmortizationTable create(LoanFinancingDto dto) {
 	LoanFinancing loanFinancing = new LoanFinancing();
 	populateAndSave(dto, loanFinancing);
+	return null;
     }
 
     @Override
     public void update(Long id, LoanFinancingDto dto) {
-	LoanFinancing loanFinancing = loanFinancingRepo.findById(id).get();
+	LoanFinancing loanFinancing = repo.findById(id).get();
 	populateAndSave(dto, loanFinancing);
     }
 
@@ -40,21 +42,21 @@ public class LoanFinancingServiceImpl implements LoanFinancingService {
 	loanFinancing.setInsuranceRate(dto.getInsuranceRate());
 	loanFinancing.setLoanType(dto.getLoanType());
 	loanFinancing.setFirstDeposit(dto.getFirstDeposit());
-	loanFinancingRepo.save(loanFinancing);
+	repo.save(loanFinancing);
     }
 
     @Override
     public void delete(Long id) {
-	loanFinancingRepo.deleteById(id);
+	repo.deleteById(id);
     }
 
     @Override
     public Page<LoanFinancingViewDto> getAll(Pageable pageable) {
-	return loanFinancingRepo.getAllProjectedBy(pageable);
+	return repo.getAllProjectedBy(pageable);
     }
 
     @Override
     public LoanFinancingViewDto getOne(Long id) {
-	return loanFinancingRepo.getById(id);
+	return repo.getById(id);
     }
 }

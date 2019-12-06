@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingDto;
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingViewDto;
+import fr.formation.loanfinancing.jobs.entities.AmortizationTable;
 import fr.formation.loanfinancing.services.LoanFinancingService;
 
 @RestController
@@ -34,8 +35,10 @@ public class LoanFinancingController {
     }
 
     @PostMapping
-    protected void create(@Valid @RequestBody LoanFinancingDto dto) {
+    protected AmortizationTable create(
+            @Valid @RequestBody LoanFinancingDto dto) {
 	service.create(dto);
+	return null;
     }
 
     @PutMapping("/{id}")

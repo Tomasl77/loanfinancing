@@ -5,10 +5,11 @@ import org.springframework.data.domain.Pageable;
 
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingDto;
 import fr.formation.loanfinancing.jobs.dtos.LoanFinancingViewDto;
+import fr.formation.loanfinancing.jobs.entities.AmortizationTable;
 
 public interface LoanFinancingService {
 
-    void create(LoanFinancingDto dto);
+    AmortizationTable create(LoanFinancingDto dto);
 
     void delete(Long id);
 
